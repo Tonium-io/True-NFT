@@ -32,7 +32,7 @@ contract CustomReplaySample {
         gc();
         NftRoot(adr).sendValue(dest,amount,bounce);
     }
-    function mintByAdmin(address adr, address dest, uint128 amount, bool bounce) public onlyOwnerAndAccept{
+    function mintByAdmin(address adr) public onlyOwnerAndAccept{
         gc();
         NftRoot(adr).mintNft();
     }

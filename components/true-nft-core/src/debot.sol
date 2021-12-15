@@ -1,5 +1,5 @@
 
-pragma ton-solidity >=0.35.0;
+pragma ton-solidity >=0.47.0;
 pragma AbiHeader expire;
 pragma AbiHeader time;
 pragma AbiHeader pubkey;
@@ -53,7 +53,7 @@ contract HelloDebot is Debot {
         caption = "Start develop DeBot from here";
         author = "TON Labs";
         support = address.makeAddrStd(0, 0x841288ed3b55d9cdafa806807f02a0ae0c169aa5edfe88a789a6482429756a94);
-        hello = "Hello, i am a HelloWorld DeBot.";
+        hello = "не работает НЕ РАБОТАЕТ";
         language = "en";
         dabi = m_debotAbi.get();
         icon = m_icon;
@@ -72,8 +72,12 @@ contract HelloDebot is Debot {
         // print string to user.
         Terminal.print(0, "Hello, there!");
         // input string from user and define callback that receives entered string.
-        Sdk.getAccountCodeHash(tvm.functionId(checkWalletHash), m_wallet);
+        MenuItem[] items;
+        items.push( MenuItem("Mint token", "", tvm.functionId(prepreprepare)) );
+        Menu.select("What's next?", "", items);
+        // Sdk.getAccountCodeHash(tvm.functionId(checkWalletHash), m_wallet);
     }
+
 
     function checkWalletHash(uint256 code_hash) public {
         // safe msig
@@ -101,18 +105,30 @@ contract HelloDebot is Debot {
 
     function preprepare(address value) public {
         m_nftroot = value;
-        uint128 p = NftRoot(m_nftroot).price();
-        Terminal.print(0, format("{}",p));
+        // uint128 p = NftRoot(m_nftroot).price();
+        _price(tvm.functionId(prepare), value);
+        
     }
 
     function prepare(uint128 price) public {
+        Terminal.print(0, format("{}",price));
         mintNft(m_nftroot,price);
     }
 
     function mintNft(address adr, uint128 value) public {
         optional(uint256) none;
         optional(uint256) pubkey = 0;
-        IMultisig(m_wallet).submitTransaction(adr, value + 2 ton, true, false, tvm.encodeBody(NftRoot.mintNft));
+        IMultisig(m_wallet).submitTransaction{
+            abiVer: 2,
+            extMsg: true,
+            sign: true,
+            pubkey: pubkey,
+            time: uint64(now),
+            expire: 0,
+            callbackId: tvm.functionId(onSuccess),
+            onErrorId: tvm.functionId(onError)
+        }
+        (adr, value + 2 ton, true, false, tvm.encodeBody(NftRoot.mintNft));
     }
 
     function onSuccess() public {
@@ -120,11 +136,26 @@ contract HelloDebot is Debot {
         start();
     }
 
+    function onError() public {
+        Terminal.print(0, "Ok");
+        start();
+    }
 
-    // function _price(uint32 answerId,address nftroot) private view {
-    //     optional(uint256) none;
-    //     return NftRoot(nftroot).price();
-    // }
+
+
+
+    function _price(uint32 answerId,address nftroot) private view {
+        optional(uint256) none;
+        NftRoot(nftroot).price{
+            abiVer: 2,
+            extMsg: true,
+            sign: false,
+            time: uint64(now),
+            expire: 0,
+            callbackId: answerId,
+            onErrorId: 0
+        }();
+    }
 
 
     

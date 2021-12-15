@@ -1,0 +1,17 @@
+Config: default
+Input arguments:
+     tvc: debot.tvc
+      wc: None
+    keys: debot.keys.json
+init_data: None
+is_update_tvc: None
+
+Seed phrase: "rug result help illness lobster area vivid spider dash gap spare situate"
+Raw address: 0:9efa443481b0a27739c184888c8a504ab596a80f596620cf10fc6bc13824ac2e
+testnet:
+Non-bounceable address (for init): 0QCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLpSQ
+Bounceable address (for later access): kQCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLslV
+mainnet:
+Non-bounceable address (for init): UQCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLi8a
+Bounceable address (for later access): EQCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLnLf
+Succeeded

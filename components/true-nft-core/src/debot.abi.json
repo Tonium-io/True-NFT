@@ -99,6 +99,13 @@
 			]
 		},
 		{
+			"name": "onError",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
 			"name": "getDebotOptions",
 			"inputs": [
 			],
