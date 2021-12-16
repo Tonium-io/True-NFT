@@ -22,15 +22,15 @@ contract CustomReplaySample {
 
     function sendMetadata(address adr,bytes metadata) public onlyOwnerAndAccept {
         gc();
-        NftRoot(adr).addMetadata(metadata);
+        NftRoot(adr).addMetadata{value: 0.1 ton}(metadata);
     }
     function startSelling(address adr) public onlyOwnerAndAccept {
         gc();
-        NftRoot(adr).startSelling();
+        NftRoot(adr).startSelling{value: 0.1 ton}();
     }
     function sendValueOnNft(address adr, address dest, uint128 amount, bool bounce) public onlyOwnerAndAccept{
         gc();
-        NftRoot(adr).sendValue(dest,amount,bounce);
+        NftRoot(adr).sendValue{value: 0.1 ton}(dest,amount,bounce);
     }
     function mintByAdmin(address adr) public onlyOwnerAndAccept{
         gc();
@@ -38,7 +38,7 @@ contract CustomReplaySample {
     }
     function sendToken(address adrNft, address adr) public onlyOwnerAndAccept{
         gc();
-        Data(adrNft).transferOwnership(adr);
+        Data(adrNft).transferOwnership{value: 0.1 ton}(adr);
     }
 
     // Function with predefined name which is used to replace custom replay protection.
