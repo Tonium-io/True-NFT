@@ -25,8 +25,12 @@ interface IMultisig {
 
 interface NftRoot {
     function price() external returns (uint128 price);
-    function mintNft()
-    external;
+    function _totalMinted() external returns (uint256 _totalMinted);
+    function _name() external returns (bytes _name);
+    function resolveDataForThis(
+        uint256 id
+    ) external returns (address addrData);
+    function mintNft() external;
 }
 
 
@@ -36,6 +40,9 @@ contract HelloDebot is Debot {
     address m_wallet;
     uint128 m_amount;
     address m_nftroot;
+    uint128 m_price;
+    uint256 m_id;
+    bytes m_name;
     function setIcon(bytes icon) public {
         require(msg.pubkey() == tvm.pubkey(), 100);
         tvm.accept();
@@ -47,13 +54,13 @@ contract HelloDebot is Debot {
         string name, string version, string publisher, string caption, string author,
         address support, string hello, string language, string dabi, bytes icon
     ) {
-        name = "HelloWorld";
-        version = "0.2.0";
-        publisher = "TON Labs";
-        caption = "Start develop DeBot from here";
-        author = "TON Labs";
-        support = address.makeAddrStd(0, 0x841288ed3b55d9cdafa806807f02a0ae0c169aa5edfe88a789a6482429756a94);
-        hello = "не работает НЕ РАБОТАЕТ";
+        name = "Nefirtiti debot minting";
+        version = "0.0.1";
+        publisher = "Tonium";
+        caption = "";
+        author = "Tonium";
+        support = address.makeAddrStd(0, 0x0);
+        hello = "It help you mint in neferiti";
         language = "en";
         dabi = m_debotAbi.get();
         icon = m_icon;
@@ -64,18 +71,26 @@ contract HelloDebot is Debot {
     }
 
     function setUserInput(string value) public {
-        // TODO: continue DeBot logic here...
         Terminal.print(0, format("You have entered \"{}\"", value));
     }
 
     function start() public override {
         // print string to user.
-        Terminal.print(0, "Hello, there!");
+        Terminal.print(tvm.functionId(getaddddr), "Hello, there!");
         // input string from user and define callback that receives entered string.
-        MenuItem[] items;
-        items.push( MenuItem("Mint token", "", tvm.functionId(prepreprepare)) );
-        Menu.select("What's next?", "", items);
-        // Sdk.getAccountCodeHash(tvm.functionId(checkWalletHash), m_wallet);
+        // MenuItem[] items;
+        // items.push( MenuItem("Mint token", "", tvm.functionId(prepreprepare)) );
+        // Menu.select("What's next?", "", items);
+        
+        
+    }
+    function getaddddr() public {
+        AddressInput.get(tvm.functionId(addressMain), "Which wallet do you want to work with?");
+    }
+    function addressMain(address value) public {
+        m_wallet = value;
+        Sdk.getAccountCodeHash(tvm.functionId(prepreprepare), m_wallet);
+        // print string to user.
     }
 
 
@@ -99,6 +114,7 @@ contract HelloDebot is Debot {
     }
 
     function prepreprepare() public {
+        //Sdk.getAccountCodeHash(tvm.functionId(checkWalletHash), m_wallet);
         AddressInput.get(tvm.functionId(preprepare), "Address of nftroot");
         
     }
@@ -111,8 +127,27 @@ contract HelloDebot is Debot {
     }
 
     function prepare(uint128 price) public {
-        Terminal.print(0, format("{}",price));
-        mintNft(m_nftroot,price);
+        m_price = price;
+        Terminal.print(tvm.functionId(getTotalMinted), format("{} price",m_price));
+    }
+    function getTotalMinted() public {
+        _total_minted(tvm.functionId(getTotalMinted_d),m_nftroot);
+    }
+
+    function getTotalMinted_d(uint256 _totalMinted) public {
+        m_id = _totalMinted;
+        _name(tvm.functionId(getName),m_nftroot);
+    }
+
+    function getName(bytes _name) public {
+        m_name = _name;
+        mintNft(m_nftroot,m_price);
+    }
+
+
+
+    function pare(address addrData) public {
+        Terminal.print(tvm.functionId(getaddddr), format("Its ok you got nft, Your address of token: {}",addrData));
     }
 
     function mintNft(address adr, uint128 value) public {
@@ -131,18 +166,14 @@ contract HelloDebot is Debot {
         (adr, value + 2 ton, true, false, tvm.encodeBody(NftRoot.mintNft));
     }
 
-    function onSuccess() public {
-        Terminal.print(0, "Ok");
-        start();
+    function onSuccess(uint64 transId) public {
+        _get_address(tvm.functionId(pare),m_nftroot,m_id);
+
     }
 
-    function onError() public {
-        Terminal.print(0, "Ok");
-        start();
+    function onError(uint32 sdkError, uint32 exitCode) public {
+        Terminal.print(tvm.functionId(getaddddr), format("Some error exitCode {} sdkError {}", exitCode, sdkError));
     }
-
-
-
 
     function _price(uint32 answerId,address nftroot) private view {
         optional(uint256) none;
@@ -153,10 +184,48 @@ contract HelloDebot is Debot {
             time: uint64(now),
             expire: 0,
             callbackId: answerId,
-            onErrorId: 0
+            onErrorId: tvm.functionId(onError)
+        }();
+    }
+
+    function _total_minted(uint32 answerId,address nftroot) private view {
+        optional(uint256) none;
+        NftRoot(nftroot)._totalMinted{
+            abiVer: 2,
+            extMsg: true,
+            sign: false,
+            time: uint64(now),
+            expire: 0,
+            callbackId: answerId,
+            onErrorId: tvm.functionId(onError)
+        }();
+    }
+
+    function _name(uint32 answerId,address nftroot) private view {
+        optional(uint256) none;
+        NftRoot(nftroot)._name{
+            abiVer: 2,
+            extMsg: true,
+            sign: false,
+            time: uint64(now),
+            expire: 0,
+            callbackId: answerId,
+            onErrorId: tvm.functionId(onError)
         }();
     }
 
 
+    function _get_address(uint32 answerId,address nftroot, uint256 id) private view {
+        optional(uint256) none;
+        NftRoot(nftroot).resolveDataForThis{
+            abiVer: 2,
+            extMsg: true,
+            sign: false,
+            time: uint64(now),
+            expire: 0,
+            callbackId: answerId,
+            onErrorId: tvm.functionId(onError)
+        }(id);
+    }
     
 }

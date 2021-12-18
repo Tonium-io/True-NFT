@@ -52,6 +52,21 @@
 			]
 		},
 		{
+			"name": "getaddddr",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addressMain",
+			"inputs": [
+				{"name":"value","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
 			"name": "checkWalletHash",
 			"inputs": [
 				{"name":"code_hash","type":"uint256"}
@@ -83,6 +98,37 @@
 			]
 		},
 		{
+			"name": "getTotalMinted",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getTotalMinted_d",
+			"inputs": [
+				{"name":"_totalMinted","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getName",
+			"inputs": [
+				{"name":"_name","type":"bytes"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "pare",
+			"inputs": [
+				{"name":"addrData","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
 			"name": "mintNft",
 			"inputs": [
 				{"name":"adr","type":"address"},
@@ -94,6 +140,7 @@
 		{
 			"name": "onSuccess",
 			"inputs": [
+				{"name":"transId","type":"uint64"}
 			],
 			"outputs": [
 			]
@@ -101,6 +148,8 @@
 		{
 			"name": "onError",
 			"inputs": [
+				{"name":"sdkError","type":"uint32"},
+				{"name":"exitCode","type":"uint32"}
 			],
 			"outputs": [
 			]

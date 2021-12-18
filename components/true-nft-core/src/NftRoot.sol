@@ -31,7 +31,7 @@ contract NftRoot is DataResolver, IndexResolver {
     using ArrayHelper for bytes[];
     bytes[] public preGenerateMetadata;
     uint128 public price;
-    uint128 public koef; 
+    uint128 public m_koef; 
     bool public start = false;
 
     constructor(TvmCell codeIndex, TvmCell codeData, uint128 pay,uint128 koef) public {
@@ -39,9 +39,12 @@ contract NftRoot is DataResolver, IndexResolver {
         _codeIndex = codeIndex;
         _codeData = codeData;
         price = pay;
-        koef = koef;
+        m_koef = koef;
     }
-
+    function resolveDataForThis(uint256 id) public view returns (address addrData) {
+        addrData = resolveData(address(this),id,_name);
+    }
+    
 
     function getMetadata() private returns (bytes metadata) {
         rnd.shuffle();
@@ -73,12 +76,11 @@ contract NftRoot is DataResolver, IndexResolver {
                 revert(102,"not enough money");
             }
         }
-        
+        price = math.muldiv(price, m_koef, 100);
         TvmCell codeData = _buildDataCode(address(this));
         TvmCell stateData = _buildDataState(codeData, _totalMinted,_name);
-        price = math.divr(price * koef,100);
+        
         new Data{stateInit: stateData, value: 1.3 ton}(msg.sender, _codeIndex,getMetadata());
-
         _totalMinted++;
     }
 

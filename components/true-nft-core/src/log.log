@@ -1,4 +1,4 @@
-Config: default
+Config: /home/user/repositories/NFT_market/true-nft/components/true-nft-core/src/tonos-cli.conf.json
 Input arguments:
      tvc: debot.tvc
       wc: None
@@ -6,12 +6,12 @@ Input arguments:
 init_data: None
 is_update_tvc: None
 
-Seed phrase: "rug result help illness lobster area vivid spider dash gap spare situate"
-Raw address: 0:9efa443481b0a27739c184888c8a504ab596a80f596620cf10fc6bc13824ac2e
+Seed phrase: "harsh emotion mirror require stone hand little seminar expect grass know proof"
+Raw address: 0:a3dcd8a321f56115239aa565e4d8112d9b2218c3601d2d1a705e2894898120fb
 testnet:
-Non-bounceable address (for init): 0QCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLpSQ
-Bounceable address (for later access): kQCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLslV
+Non-bounceable address (for init): 0QCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg-7Sy
+Bounceable address (for later access): kQCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg--l3
 mainnet:
-Non-bounceable address (for init): UQCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLi8a
-Bounceable address (for later access): EQCe-kQ0gbCidznBhIiMilBKtZaoD1lmIM8Q_GvBOCSsLnLf
+Non-bounceable address (for init): UQCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg-w84
+Bounceable address (for later access): EQCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg-1L9
 Succeeded
