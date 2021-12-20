@@ -6,12 +6,12 @@ Input arguments:
 init_data: None
 is_update_tvc: None
 
-Seed phrase: "harsh emotion mirror require stone hand little seminar expect grass know proof"
-Raw address: 0:a3dcd8a321f56115239aa565e4d8112d9b2218c3601d2d1a705e2894898120fb
+Seed phrase: "mom safe fatal jazz car glue crouch gravity spoon leaf profit endorse"
+Raw address: 0:a57783a6c86469dc96f8e1d103fca8896d7955349a08faa1d9b001c741ae4a60
 testnet:
-Non-bounceable address (for init): 0QCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg-7Sy
-Bounceable address (for later access): kQCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg--l3
+Non-bounceable address (for init): 0QCld4OmyGRp3Jb44dED_KiJbXlVNJoI-qHZsAHHQa5KYFuu
+Bounceable address (for later access): kQCld4OmyGRp3Jb44dED_KiJbXlVNJoI-qHZsAHHQa5KYAZr
 mainnet:
-Non-bounceable address (for init): UQCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg-w84
-Bounceable address (for later access): EQCj3NijIfVhFSOapWXk2BEtmyIYw2AdLRpwXiiUiYEg-1L9
+Non-bounceable address (for init): UQCld4OmyGRp3Jb44dED_KiJbXlVNJoI-qHZsAHHQa5KYOAk
+Bounceable address (for later access): EQCld4OmyGRp3Jb44dED_KiJbXlVNJoI-qHZsAHHQa5KYL3h
 Succeeded

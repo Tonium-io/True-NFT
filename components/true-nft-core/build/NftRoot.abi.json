@@ -15,6 +15,15 @@
 			]
 		},
 		{
+			"name": "resolveDataForThis",
+			"inputs": [
+				{"name":"id","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"addrData","type":"address"}
+			]
+		},
+		{
 			"name": "addMetadata",
 			"inputs": [
 				{"name":"metadata","type":"bytes"}
@@ -134,11 +143,11 @@
 			]
 		},
 		{
-			"name": "koef",
+			"name": "m_koef",
 			"inputs": [
 			],
 			"outputs": [
-				{"name":"koef","type":"uint128"}
+				{"name":"m_koef","type":"uint128"}
 			]
 		},
 		{
@@ -168,7 +177,7 @@
 		{"name":"_addrBasis","type":"address"},
 		{"name":"preGenerateMetadata","type":"bytes[]"},
 		{"name":"price","type":"uint128"},
-		{"name":"koef","type":"uint128"},
+		{"name":"m_koef","type":"uint128"},
 		{"name":"start","type":"bool"}
 	]
 }

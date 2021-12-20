@@ -16,10 +16,10 @@ contract Data is IData, IndexResolver {
     address _addrAuthor;
 
     uint256 static _id;
-    bytes static _name;
-    bytes _metadata;
+    string static _name;
+    string _metadata;
 
-    constructor(address addrOwner, TvmCell codeIndex, bytes metadata) public {
+    constructor(address addrOwner, TvmCell codeIndex, string metadata) public {
         optional(TvmCell) optSalt = tvm.codeSalt(tvm.code());
         require(optSalt.hasValue(), 101);
         (address addrRoot) = optSalt.get().toSlice().decode(address);
@@ -63,8 +63,8 @@ contract Data is IData, IndexResolver {
         address addrRoot,
         address addrOwner,
         address addrData,
-        bytes nameRoot,
-        bytes metadata
+        string nameRoot,
+        string metadata
     ) {
         addrRoot = _addrRoot;
         addrOwner = _addrOwner;

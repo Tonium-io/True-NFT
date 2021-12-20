@@ -20,7 +20,7 @@ contract CustomReplaySample {
         _;
     }
 
-    function sendMetadata(address adr,bytes metadata) public onlyOwnerAndAccept {
+    function sendMetadata(address adr,string metadata) public onlyOwnerAndAccept {
         gc();
         NftRoot(adr).addMetadata{value: 0.1 ton}(metadata);
     }

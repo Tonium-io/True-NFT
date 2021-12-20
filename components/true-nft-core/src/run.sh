@@ -9,7 +9,7 @@ set -e
 # fi
 
 DEBOT_NAME=debot
-giver=0:653b9a6452c7a982c6dc92b2da9eba832ade1c467699ebb3b43dca6d77b780dd
+giver=0:65823528df743defb0a19f231b428de8c59440f8523475869dfdc0e71351010f
 function giver {
 tonos-cli --url https://net.ton.dev call --abi ./local_giver.abi.json $giver grant "{\"addr\":\"$1\"}"
 }

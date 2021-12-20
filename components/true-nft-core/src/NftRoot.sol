@@ -13,7 +13,7 @@ import './interfaces/IIndexBasis.sol';
 
 library ArrayHelper {
     // Delete value from the `array` at `index` position
-    function del(bytes[] array, uint index) internal pure {
+    function del(string[] array, uint index) internal pure {
         for (uint i = index; i + 1 < array.length; ++i){
             array[i] = array[i + 1];
         }
@@ -25,11 +25,11 @@ library ArrayHelper {
 contract NftRoot is DataResolver, IndexResolver {
 
     address static _addrOwner;
-    bytes static public _name;
+    string static public _name;
     uint256 public _totalMinted;
     address _addrBasis;
-    using ArrayHelper for bytes[];
-    bytes[] public preGenerateMetadata;
+    using ArrayHelper for string[];
+    string[] public preGenerateMetadata;
     uint128 public price;
     uint128 public m_koef; 
     bool public start = false;
@@ -46,14 +46,14 @@ contract NftRoot is DataResolver, IndexResolver {
     }
     
 
-    function getMetadata() private returns (bytes metadata) {
+    function getMetadata() private returns (string metadata) {
         rnd.shuffle();
         uint n = rnd.next(preGenerateMetadata.length);
         metadata = preGenerateMetadata[n];
         preGenerateMetadata.del(n);
     }
 
-    function addMetadata(bytes metadata) public {
+    function addMetadata(string metadata) public {
         require(msg.sender == _addrOwner, 100);
         preGenerateMetadata.push(metadata);
     }
@@ -71,7 +71,7 @@ contract NftRoot is DataResolver, IndexResolver {
             tvm.accept();
         }
         else {
-            tvm.rawReserve(0 ton, 4);
+            tvm.rawReserve(price, 4);
             if (msg.value < price) {
                 revert(102,"not enough money");
             }
